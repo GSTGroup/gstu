@@ -1,0 +1,18 @@
+;$Id$
+name = GST-UTIL (gstu)
+description = GST (Growing Strong Together) UTIL Base Module
+package = GST
+core = 7.x
+files[] = gstu.install
+files[] = gstu.module
+;dependencies[] = autoload
+
+; Views handlers
+;files[] = gst_views_handler_filter_realname.inc
+;files[] = includes/gst_views_handler_field_ctools_dropbutton_links.inc
+ 
+; SCRIPTS
+;scripts[] = gst.js
+
+;php = 5.2
+version = "7.x-1.0-alpha1"

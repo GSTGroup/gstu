@@ -1,0 +1,585 @@
+<?php
+
+// _gst_include_field_collection_widget();
+
+function gstu_include($file) {
+  module_load_include("inc", "gstu", "gstu.$file"); // Loads gst/gst.$file.inc
+}
+
+/*
+ * gst_include_form() includes the form inc file
+ *
+ * This can be used in #submit array before the sumbit functions which are located in the
+ * inc file
+ */
+function gstu_include_form() {
+  module_load_include("inc", "gstu", "gstu.form"); // Loads gstu/gstu.form.inc
+}
+
+
+function gstu_include_block() {
+  module_load_include("inc", "gstu", "gstu.block"); // Loads gstu/gstu.block.inc
+}
+
+function gstu_include_members() {
+  module_load_include("inc", "gstu", "gstu.members"); // Loads gstu/gstu.members.inc
+}
+
+/** 
+ * Implements hook_help(). 
+ */ 
+function gstu_help($path, $arg) {
+  if ($path == 'admin/help#gstu') { 
+    return t('GST (Growing Strong Together) Util base Module.'); 
+  }   
+}
+
+function gstu_add_css() {
+  drupal_add_css(drupal_get_path('module', 'gstu') . '/gstu.css',
+    array('group' => CSS_DEFAULT, 'every_page' => TRUE));    
+  drupal_add_css(drupal_get_path('module', 'gstu') . '/gstu_less.less',
+    array('group' => CSS_DEFAULT, 'every_page' => TRUE));      
+}
+
+function gstu_add_js() {  
+  // Add gst_entityref.js file to include Behaviors
+  $js_path = drupal_get_path('module', 'gstu') . '/gstu.js';
+  drupal_add_js($js_path);  
+}
+
+/**
+*
+* Implements hook_block_info()
+* @return an array containing block configuration data
+*/
+function gstu_block_info() {
+  $blocks = array();
+//  $blocks['gst_logo'] = array(
+//    'info' => t('GST: Logo'),
+//    'cache' => DRUPAL_NO_CACHE,
+//  );  
+  $blocks['gstu_account'] = array(
+    'info' => t('GST-UTIL: Account'),
+        'cache' => DRUPAL_NO_CACHE,
+    );
+//  $blocks['gstu_group_breadcrumbs'] = array(
+//    'info' => t('GST: Group breadcrumbs'),
+//        'cache' => DRUPAL_NO_CACHE,
+//  );
+//  $blocks['gstu_space_header_img'] = array(
+//    'info' => t('GST: Space Header Image'),
+//    'cache' => DRUPAL_NO_CACHE,
+//  );  
+  $blocks['gstu_context_links'] = array(
+    'info' => t('GST-UTIL: Context links'),
+        'cache' => DRUPAL_NO_CACHE,
+  );
+//  $blocks['gst_course_contents'] = array(
+//    'info' => t('GST: Course Contents'),
+//    'cache' => DRUPAL_NO_CACHE,
+//  );  
+  $blocks['gstu_create_content'] = array(
+    'info' => t('GST-UTIL: Create content'),
+        'cache' => DRUPAL_NO_CACHE,
+    );
+  $blocks['gstu_space_settings'] = array(
+    'info' => t('GST-UTIL: Space settings'),
+        'cache' => DRUPAL_NO_CACHE,
+  );
+  $blocks['gstu_search_tool'] = array(
+    'info' => t('GST-UTIL: Search Tool'),
+        'cache' => DRUPAL_NO_CACHE,
+  );
+  $blocks['gstu_node_submitted_picture'] = array(
+    'info' => t('GST-UTIL: Node submitted'),
+        'cache' => DRUPAL_NO_CACHE,
+  );
+//  $blocks['gst_members_addform'] = array(
+//    'info' => t('GST: Members add form'),
+//    'cache' => DRUPAL_NO_CACHE,
+//  );
+//  $blocks['gst_members_registerform'] = array(
+//    'info' => t('GST: Members user register form'),
+//    'cache' => DRUPAL_NO_CACHE,
+//  );    
+//  $blocks['gst_signup_registerform'] = array(
+//    'info' => t('GST: *INCOMPLETE* Signup register form'),
+//    'cache' => DRUPAL_NO_CACHE,
+//  );    
+//  $blocks['gst_group_leaders'] = array(
+//    'info' => t('GST: Group Leaders'),
+//    'cache' => DRUPAL_NO_CACHE,
+//  );
+  
+  return $blocks;
+}
+
+function gstu_block_view($block_name = '') {
+  switch ($block_name) {
+//    case 'gst_logo':
+//      gst_include_block();
+//      return _gst_block_logo();
+//      break;    
+    case 'gstu_account':
+      gstu_include_block();
+      return _gstu_block_account();
+      break;
+//    case 'gst_group_breadcrumbs':
+//      gst_include_block();
+//      return _gst_block_group_breadcrumbs();
+//      break;
+    case 'gstu_space_header_img':
+      gstu_include_block();
+      return _gstu_block_space_header_img();
+      break;      
+    case 'gstu_context_links':
+      gstu_include_block();
+      return _gstu_block_context_links();
+      break;
+//    case 'gst_course_contents':
+//      gst_include_block();
+//      return _gst_block_course_contents();
+//      break;            
+    case 'gstu_create_content':
+      gstu_include_block();
+      return _gstu_block_create_content();
+      break;
+    case 'gstu_space_settings':
+      gstu_include_block();
+      return _gstu_block_space_settings();
+      break;      
+    case 'gstu_search_tool':
+      gstu_include_block();
+      return _gstu_block_search_tool();
+      break;
+    case 'gstu_node_submitted_picture':
+      gstu_include_block();
+      return _gstu_block_node_submitted_picture();
+      break;
+//    case 'gst_members_addform':
+//      gst_include_block();
+//      return _gst_block_members_addform();
+//      break;      
+//    case 'gst_members_registerform':
+//      gst_include_block();
+//      return _gst_block_members_registerform();
+//      break;      
+//    case 'gst_signup_registerform':
+//      gst_include_block();
+//      return _gst_block_signup_registerform();
+//      break;          
+//    case 'gst_group_leaders':
+//      gst_include_block();
+//      return _gst_block_group_leaders();
+//      break;    
+  }
+}
+
+
+// <editor-fold defaultstate="collapsed" desc="PREPROCESS Functions">
+
+function gstu_preprocess_node(&$vars) {
+  
+  $username = '';
+  if (isset($vars['node']) && $node = $vars['node']) {
+    $node_user = user_load($node->uid);
+    $username = theme('username', array('account' => $node_user));        
+  }
+  $vars['submitted_username'] = "<div class='submitted-username'>{$username}</div>";
+  $date = module_exists('reldate') ? reldate_format_date($vars['created']) : format_date($vars['created'], 'small');
+  $vars['submitted_date'] = "<div class='submitted-date'>{$date}</div>";
+  
+  // This adds any 'class' settings in the #attributes class to the classes_array (not sure why this isn't done already...but it is not)
+  if (isset($vars['elements']['#attributes']['class']) && is_array($vars['elements']['#attributes']['class'])) {
+    $vars['classes_array'] = array_merge($vars['classes_array'], $vars['elements']['#attributes']['class']);
+  }
+  
+  /*
+  if (module_exists('beautytips')) {
+    $options['bt_node_submitted'] = array(
+      'positions' => array('top', 'right', 'left'),
+      //'centerPointX' => .5,
+      //'spikeLength' => 25,
+      //'spikeGirth' => 25,
+      'cssSelect' => '.node .field .node-submitted',
+			'contentSelector' => "$(this).next('.beautytip').html()",                    
+      'trigger' => array('hover'),
+      //'trigger' => array('mouseover', 'click'),
+      'width' => 300,
+      'fill' => '#eee',
+      'cornerRadius' => 10,
+      'strokeWidth' => 0,
+      'shadow' => true,
+      'shadowOffsetX' => 3,
+      'shadowOffsetY' => 3,
+      'shadowBlur' => 8,
+      'shadowColor' => 'rgba(0,0,0,.9)',
+      'shadowOverlap' => false,
+      // This breaks beautytips.js - not sure why.
+//       'noShadowOpts' => array(
+//         'strokeStyle' => '#999', array('strokeWidth' => 2),
+//         'positions' => array('left', 'top')
+//         ),
+    );
+    beautytips_add_beautytips($options);
+  }  
+  */
+  
+  return;
+}
+
+// </editor-fold> // PREPROCESS Functions
+
+
+// <editor-fold defaultstate="collapsed" desc="UI Util">
+
+/**
+ * Adds a beautytip to content
+ * @param array $options Array of options - see below and jquery.bt.js
+ * @param string $beautytip_id: will be filled with the beautytip HTLM Id for use in $('#selector').btOn()/.btOff()
+ * @return string
+ * 
+ * Beautytips Help: http://drupalcode.org/project/beautytips.git/blob/HEAD:/README.txt
+ * 
+ * Use as follows:
+ *  Fill $options with beautytip options as per beautytip_add_beautip()
+ *  Also specify the following:
+ *  '#content' => content string - this is the content that is DISPLAYED (that is the "trigger" for the BT)
+ *  '#bt_content' => beautytip content - this is the content that goes in the Beautytip. It is HIDDEN until
+ *    #content is "hovered" over.
+ *    NOTE: Any instances of [beautytip-id] will be replaced with the beautytipid that is assigned. This can be used
+ *      for instance in strings as follows: 
+ *  '#attributes_content' => array of HTML attributes to add to #content
+ *  '#attributes_bt_content' => array of HTML attributes to add to #bt_content
+ * Example:
+    $options = array(
+      '#content' => "<span class='icon type-gstgroup'></span>",
+      '#bt_content' => "<div class='list'><h3>" . t('Group audience') . '</h3>' 
+       . drupal_render($data->field_group_audience) . '</div>',
+    );
+    $output = gstu_add_beautytip($options);
+    print $output;
+ * 
+ */
+function gstu_add_beautytip($options, &$beautytip_id = NULL) {
+  $output = '';
+  $options += array(
+    '#content' => '',
+    '#bt_content' => '',
+    '#attributes_content' => array('class' => array()),
+    '#attributes_bt_content' => array('class' => array()),
+  );
+  if (module_exists('beautytips')) {    
+    $beautytip_id = gstu_get_unique_id('beautytip');
+    $options += array(
+      '#selector' => $beautytip_id,
+        
+      'positions' => array('top', 'right', 'left'),
+      //'centerPointX' => .5,
+      //'spikeLength' => 25,
+      //'spikeGirth' => 25,      
+      'contentSelector' => "$(this).next('.beautytip').html()",
+      'trigger' => array('hoverIntent'),      
+      //'trigger' => array('mouseover', 'mouseout'),
+      //'trigger' => array('mouseover', 'click'), // For Testing Purposes
+      'width' => 300,
+      'fill' => '#eee',
+      'cornerRadius' => 10,
+      'strokeWidth' => 0,
+      'shadow' => true,
+      'shadowOffsetX' => 3,
+      'shadowOffsetY' => 3,
+      'shadowBlur' => 8,
+      'shadowColor' => 'rgba(0,0,0,.9)',
+      'shadowOverlap' => false,        
+      );
+    $selector = $options['#selector'];
+    $content = $options['#content'];
+    $bt_content = $options['#bt_content'];
+    $bt_content = str_replace('[beautytip-id]', $beautytip_id, $bt_content);
+    $attr_content = $options['#attributes_content'];
+    $attr_bt_content = $options['#attributes_bt_content'];
+    
+    // Remove # entries from $options
+    foreach ($options as $key => $value) {
+      if ($key[0] == '#') {
+        unset ($options[$key]);
+      }
+    }
+    $options['cssSelect'] = '#' . $selector;
+    
+    // Create Output to return    
+    $attr_content['id'] = $selector;
+    $attr_bt_content['class'] = array('hide', 'beautytip');    
+    $output .= '<div ' . drupal_attributes($attr_content) . '>';
+    $output .= $content;
+    $output .= '</div>';
+    $output .= '<div ' . drupal_attributes($attr_bt_content) . '>';
+    $output .= $bt_content;
+    $output .= '</div>';
+    
+    $bt_options[$selector] = $options;
+    beautytips_add_beautytips($bt_options);    
+  } else {
+    $output .= '<div ' . drupal_attributes($attr_content) . '>';
+    $output .= $content;
+    $output .= '</div>';    
+  }
+  return $output;  
+}
+
+
+/**
+* Returns a unique GST id for use with form elements
+*/
+function gstu_get_unique_id($key) {
+  static $gst_unique_id = array();
+  if (!isset($gst_unique_id[$key])) {
+    $gst_unique_id[$key] = 0;
+  }
+  return $key . ++$gst_unique_id[$key];
+}
+
+function gstu_startsWith($haystack, $needle)
+{
+  $length = strlen($needle);
+  return (substr($haystack, 0, $length) === $needle);
+}
+
+function gstu_endsWith($haystack, $needle)
+{
+  $length = strlen($needle);
+  $start  = $length * -1; //negative
+  return (substr($haystack, $start) === $needle);
+}
+
+function gstu_isset_or(&$check, $alternate = NULL) 
+{ 
+  return (isset($check) && !empty($check)) ? $check : $alternate; 
+} 
+  
+function gstu_get_form_group_delta($form, $group, $field) {
+  if (isset($form[$group])) {
+    foreach($form[$group]['group']['#groups'][$group] as $delta => $g) {
+      if ($g['#id'] == $field['#id']) {
+        return $delta;        
+      }
+    }    
+  }
+  return FALSE;  
+}
+
+function gstu_get_username($user) {
+  if (is_numeric($user)) {
+    $user = user_load($user);
+  }
+  if (module_exists('realname')) {
+    if (!empty($user->realname)) {
+      return $user->realname;
+    }
+  }
+  return $user->name;
+}
+
+// </editor-fold> // UI Util
+
+
+// <editor-fold defaultstate="collapsed" desc="DS Fields">
+
+/**
+ * Display Suite Custom Fields
+ * -----------------------------------------------------------------------------
+ */
+
+
+/**
+ * Define fields. These fields are not overridable through the interface.
+ * If you want those, look at hook_ds_custom_fields_info().
+ *
+ * @param $entity_type
+ *   The name of the entity which we are requesting fields for, e.g. 'node'.
+ *
+ * @return $fields
+ *   A collection of fields which keys are the entity type name and values
+ *   a collection fields.
+ *
+ * @see ds_get_fields()
+ */
+function gstu_ds_fields_info($entity_type) {
+  $fields = array();
+  
+  switch ($entity_type) {
+    case 'node':
+      $fields['gstu_node_submitted_picture_block'] = array(
+    
+        // title: title of the field
+        'title' => t('GST-UTIL: Node Submitted Picture Block'),
+    
+        // type: type of field
+        // - DS_FIELD_TYPE_THEME      : calls a theming function.
+        // - DS_FIELD_TYPE_FUNCTION   : calls a custom function.
+        // - DS_FIELD_TYPE_CODE       : calls ds_render_code_field().
+        // - DS_FIELD_TYPE_BLOCK      : calls ds_render_block_field().
+        // - DS_FIELD_TYPE_PREPROCESS : calls nothing, just takes a key from the
+        //                              variable field that is passed on.
+        // - DS_FIELD_TYPE_IGNORE     : calls nothing, use this if you simple want
+        //                              to drag and drop. The field itself will have
+        //                              a theme function.
+        'field_type' => DS_FIELD_TYPE_FUNCTION,
+    
+        // ui_limit : only used for the manage display screen so
+        // you can limit fields to show based on bundles or view modes
+        // the values are always in the form of $bundle|$view_mode
+        // You may use * to select all.
+        // Make sure you use the machine name.
+        'ui_limit' => array('*|*'),
+    
+        // file: an optional file in which the function resides.
+        // Only for DS_FIELD_TYPE_FUNCTION.
+        'file' => drupal_get_path('module', 'gstu') . '/gstu.ds_field.inc',
+    
+        // function: only for DS_FIELD_TYPE_FUNCTION.
+        'function' => 'gstu_ds_node_submitted_picture_field',
+    
+        // properties: can have different keys.
+        'properties' => array(
+    
+          // formatters: optional if a function is used.
+          // In case the field_type is DS_FIELD_TYPE_THEME, you also
+          // need to register these formatters as a theming function
+          // since the key will be called with theme('function').
+          // The value is the caption used in the selection config on Field UI.
+//           'formatters' => array(
+//             'node_title_nolink_h1' => t('H1 title'),
+//             'node_title_link_h1' => t('H1 title, linked to node'),
+//           ),
+    
+          // settings & default: optional if you have a settings form for your field.
+//           'settings' => array(
+//             'wrapper' => array('type' => 'textfield', 'description' => t('Eg: h1, h2, p')),
+//             'link' => array('type' => 'select', 'options' => array('yes', 'no')),
+//           ),
+//           'default' => array('wrapper' => 'h2', 'link' => 0),
+    
+          // code: optional, only for code field.
+//           'code' => 'my code here',
+    
+          // use_token: optional, only for code field.
+//           'use_token' => TRUE, // or FALSE,
+    
+          // block: the module and delta of the block, only for block fields.
+          //  format: 'module|delta-name'
+//           'block' => 'gst|gst_node_submitted_picture',
+    
+          // block_render: block render type, only for block fields.
+          // - DS_BLOCK_CONTENT       : render through block template file.
+          // - DS_BLOCK_TITLE_CONTENT : render only title and content.
+          // - DS_BLOCK_CONTENT       : render only content.
+//           'block_render' => DS_BLOCK_CONTENT,
+        )
+      );      
+
+      
+
+
+      // For use in "blocks" and other places where we need a small "ownership" line
+      // Format: <content type-icon> <author> - submit date/time
+      $fields['gstu_node_submitted_author'] = array(
+    
+        // title: title of the field
+        'title' => t('GST-UTIL: Node Submitted Author Line'),
+    
+        // type: type of field
+        'field_type' => DS_FIELD_TYPE_FUNCTION,
+    
+        'ui_limit' => array('*|*'),
+    
+        // file: an optional file in which the function resides.
+        // Only for DS_FIELD_TYPE_FUNCTION.
+        'file' => drupal_get_path('module', 'gstu') . '/gstu.ds_field.inc',
+    
+        // function: only for DS_FIELD_TYPE_FUNCTION.
+        'function' => 'gstu_ds_node_submitted_author',
+    
+        // properties: can have different keys.
+        'properties' => array(    
+        )
+      );            
+      
+      return array('node' => $fields);
+      break; // node      
+    
+    case 'user':
+      
+      // Profile2 Profile Views
+      if (module_exists('profile2')) {
+        // Add any profile2 profiles for display
+        $profiles = profile2_get_types();        
+        foreach ($profiles as $pn => $profile) {
+          $fn = 'gst_ds_user_profile2_' . $pn;
+          $fields[$fn] = array(
+
+            // title: title of the field
+            'title' => t('GST: User Profile2: !pn', array('!pn' => $profile->label)),
+
+            // type: type of field
+            'field_type' => DS_FIELD_TYPE_FUNCTION,
+
+            'ui_limit' => array('*|*'),
+
+            // file: an optional file in which the function resides.
+            // Only for DS_FIELD_TYPE_FUNCTION.
+            'file' => drupal_get_path('module', 'gst') . '/gst.ds_field.inc',
+
+            // function: only for DS_FIELD_TYPE_FUNCTION.
+            'function' => 'gst_ds_user_profile2',
+
+            // properties: can have different keys.
+            'properties' => array(    
+              'settings' => array(),              
+              'default' => array('profile' => $pn),
+            )
+          );      
+          
+        }
+      }
+      return array('user' => $fields);
+      break; // user
+  }
+  
+}
+
+function gstu_ds_field_settings_form($field) {
+  $form = array();
+  // Saved formatter settings are on $field['formatter_settings'];
+  $settings = isset($field['formatter_settings']) ? $field['formatter_settings'] : $field['properties']['default'];
+  switch ($field['name']) {
+    // Custom Forms
+    
+    // Default Forms
+    default:
+      // Call the Display Suite Default which builds generic forms
+      $form = ds_ds_field_settings_form($field);
+      break;
+  }
+  return $form;
+}
+
+function gstu_ds_field_format_summary($field) {
+  $summary = '';
+  $settings = isset($field['formatter_settings']) ? $field['formatter_settings'] : $field['properties']['default'];
+  if (!isset($field['name'])) { return $summary; }
+  switch ($field['name']) {
+    // Custom Forms
+    
+    // Default Forms
+    default:
+      // Call the Display Suite Default which builds generic forms
+      $summary = ds_ds_field_format_summary($field);
+      break;
+  }
+  return $summary;  
+}
+
+
+// </editor-fold> // DS Fields

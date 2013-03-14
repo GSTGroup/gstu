@@ -1,0 +1,607 @@
+
+/* MISC Util Classes
+ *----------------------------------------------------------------------------*/
+.hide {
+  display: none;
+  visibility: hidden;
+}
+
+/* GLOBAL Page Top */
+.page-inner-top {
+  background-image: url("images/ui-sprite-skin.png");
+  background-position: 0 0px;
+  background-repeat: repeat-x;
+  height: 40px;  
+  position: relative; // This allows ANY block inside this to be pos=abs and then right=0px to "peg" to right-side
+  .block {
+    margin-bottom: 0px;
+  }   		
+ 
+	.global-tools-outer {
+    float: left;
+    width: auto;
+    min-width: 0px;	
+    .global-tools-wrapper {
+      width: auto;
+      min-width: 0px;
+      .region {
+        width: auto;
+        min-width: 0px;
+      }    
+    }
+	}
+	.global-header-outer {
+	  float: left;
+	  width: auto;
+	  min-width: 0px;
+    margin-left: 0.5em;
+	  .global-header-wrapper {
+	    width: auto;
+	    min-width: 0px;
+      .region {
+        width: auto;
+        min-width: 0px;
+      }    	    
+	  }   	  
+	}
+	
+} /* page-inner-top */
+
+
+.global-tools-inner {
+	padding-left: 10px;
+	padding-top: 4px;	
+	padding-right: 5px;
+}
+
+.region-global-tools {
+  .block.block-gst-logo {
+    margin-right: 5px;
+    .gutter { margin: 0px; }
+    .block-title {
+      padding: 0px;
+      margin: 0px;
+      height: 28px;
+      width: 52px;
+      padding-top: 2px;
+      padding-right: 5px;
+      padding-left: 5px;
+      padding-bottom: 2px;      
+      border-radius: 3px 3px 3px 3px;
+    }
+    .block-title a, 
+    .block-title a:hover {
+      background: none repeat scroll 0 0 transparent;
+      text-decoration: none;
+    }
+    .gst-logo {
+      width: 52px;
+      height: 28px;      
+      background-image: url("images/gst_short_logo_52x28.png");
+      background-repeat: no-repeat;
+      background-position: 0 0; 
+    }
+    .gst-full-logo {
+      width: 336px;
+      height: 32px;      
+      background-image: url("images/gst_full_logo_336x32.png");
+      background-repeat: no-repeat;
+      background-position: 0 0;   
+    }
+    .oua-img {
+      width: 153px;
+      height: 80px;      
+      background-image: url("images/ObserveUnderstandApply_153x80.png");
+      background-repeat: no-repeat;
+      background-position: 0 0;   
+    }
+  } /* block-gst-logo */
+  .block.block-gst-logo.rcontent {
+    .content {
+      min-width: 400px;
+      >p { margin-top: 0px; }
+    }          
+  }
+  
+	.block.block-gstu-account {
+	  .gutter { margin: 0px; }
+    .block-title {
+      padding: 0px;
+    	padding-left: 37px;
+    	padding-right: 10px;    	
+      border-radius: 3px 3px 3px 3px;    	
+	    font-size: 11px;
+	    height: 32px;
+	    line-height: 32px;
+	    margin: 0px;
+	    color: #FFFFFF;
+	    position: relative;	    
+		}
+    .block-title a, 
+    .block-title a:hover {
+      background: none repeat scroll 0 0 transparent;
+      text-decoration: none;
+    }
+
+		.user-picture {
+      border-radius: 3px 0 0 3px;
+      left: 0;
+      position: absolute;
+      top: 0;    	
+      img {
+       width: 32px; /* thumb32 */ 
+      }      
+    }
+		
+		.account-login {
+		  left: 0;
+		  top: 0;
+		  position: absolute;
+		  border-radius: 3px 0 0 3px;
+		  .icon {
+		    float: none;
+		    display: inline-block;
+		    height: 30px;
+		    width: 30px;
+		  }
+		  .login-title {
+		    display: inline-block;
+		    width: auto;
+		    a { padding-bottom: 22px; }		    
+		  }
+		  .picture {
+		    height: 30px;
+		    width: 30px;
+		  }
+		}		
+		
+	} /* .block.block-gst-account */
+  .block.gst-region-active .block-title {
+	  background-color: #FFF !important;
+	  border-radius: 5px 5px 0 0;
+	  a, a:hover { color: #333333; }
+	}
+
+} /* global tools */
+
+.global-header-inner {
+  .block {
+    width: auto;
+  }
+}
+
+/**
+ * Togglable blocks ===================================================
+ */
+ /* Item Widths */
+@block_tm = 5px; /* Block Top Margin */
+@block_rm = 5px; /* Block Right Margin */
+@block_bm = 5px; /* Block Bottom Margin */
+@block_lm = 10px; /* Block Left Margin */
+@icon_width = 20px;
+@title_width = 140px;
+@title_padl = 10px;
+@title_padr = 40px;
+@title_marr = 10px;
+@pane_leftw = (@title_padl + @title_width + @title_padr);
+@pane_rightw = ((@title_padl + @title_width + @title_padr) * 2) + 20px;
+.dropdown-blocks {}
+
+.dropdown-blocks {
+  .block-inner {
+    margin-top: @block_tm;    
+    margin-right: @block_rm;
+    margin-bottom: @block_bm;;
+    margin-left: @block_lm;    
+  }
+	.block { 
+	   padding-left:5px; 
+	   float:left; position:relative;
+	   width: auto; 
+     
+    .block-inner {
+      background: none;
+    }
+    .block-title {
+      cursor:pointer;
+      background:#eee;
+      padding:5px 5px;
+      margin-bottom: 0px;
+      -moz-border-radius:5px;
+      -webkit-border-radius:5px;
+      
+	    span.icon {
+	      display:block;
+	      float:left;
+	      width:20px;
+	      width: @icon_width;
+	      height:20px;
+	      margin-right:5px;
+	    }      
+    }
+    
+    /* Move these up and to the LEFT so they don't cover up the buttons */
+    div.contextual-links-wrapper {
+      right: 5px;
+      top: -20px;
+    }
+
+	 }
+  .content {
+    z-index:499;
+    position:absolute;
+    display:none;
+  }
+
+	.block-widget .content { 
+    padding:5px 10px; 
+    display:block;
+    position:static;    
+  }	
+
+	.block-widget,
+  .block-toggle {
+	  background:transparent;
+	  margin:0px;
+	  padding:0px;
+	  border:0px;
+	  -moz-box-shadow:none;
+	  -webkit-box-shadow:none;
+  }
+  
+	.block-toggle { 
+		.content {
+		  z-index: 498;
+		  background: #f8f8f8;
+		  padding: 3px;		  
+		  border: 5px solid #fff;		  			  
+	  }
+
+	  form,
+	  ul.links,
+	  .item-list {
+	    -moz-border-radius:0px;
+	    -webkit-border-radius:0px;
+	    min-width:180px;
+	    }
+	
+	  ul {
+	    margin-left: 0px;
+	    margin-bottom: 0px;
+	  }
+	  li {
+	    float:none;
+	    padding:0px;
+	    margin:0px;
+	    border:0px;
+	    list-style: none outside none;
+	  }
+	
+	  li a,
+	  .more-link a {
+	    float:none;
+	    width: @title_width; /* reduce this to add gutter between cols */
+	    height:20px;
+	    display:block;
+	
+	    overflow:hidden;
+	    white-space:nowrap;
+	    padding:2px 40px 2px 10px;
+	    border-bottom:1px solid #eee;
+	    padding-left: @title_padl;
+	    padding-right: @title_padr;
+	  }
+	
+	  li a.active { color:#333; }
+	  li a:hover { color:#fff; text-decoration: none; }
+	
+	  li a span {
+	    float:left;
+	    margin-right:10px;
+	  }
+
+		/* Panes */
+		.panes {
+		   width:540px;
+		   width: (@pane_leftw + @pane_rightw);
+		   background:url(images/ui-vrule.png) 179px 0px repeat-y;
+		   height: 100%;
+		}
+		
+		.pane-left,
+		.pane-right {
+		  width: @pane_leftw;
+		  float:left;
+		}
+		
+		.pane-right { width: @pane_rightw; }
+		.pane-right li { float:left; width:50%; }
+		
+		/* Headings */
+		.content h1,
+		.content h2,
+		.content h3 {
+		  background:#fff;
+		  padding:2px 10px;
+		  border-bottom:1px solid #eee;
+		}
+		
+		/* Forms */
+		.buttons,
+		form { padding:10px; }
+		
+		.buttons { text-align:center; }
+		
+		input.form-submit { margin:5px 0px 0px; }
+		
+		.form-checkboxes .form-item {
+		  padding:5px 5px 4px;
+		  margin:0px 0px 1px;
+		  background:#eee;
+	  }
+
+    /* View Pagers */
+    .item-list .pager li {
+      padding: 0.5em;
+      width: auto;
+      float: none;
+      a {        
+        display: inline;
+        padding: 3px 6px 2px;
+        border: 1px solid #333;
+        text-decoration: none;
+        margin: 0px;
+        width: auto;
+        height: auto;               
+      }
+    }
+    
+    /* Icons */
+    .icon {
+      background-image: url("images/ui-sprite-icons.png");      
+      background-repeat: no-repeat;    
+      background-position: 0px -320px;
+      width: @icon_width;
+      height: 20px;      
+    }
+    
+  } /* .block-toggle */
+
+  .block-toggle.lcontent {
+    .content {
+      border: 5px solid #fff;     
+      right: (@block_rm + 5);
+      left: auto;
+      min-width: 180px;
+    
+      /* W00T */
+      box-shadow: 10px 10px 20px #999999;
+      border-radius: 5px 0px 5px 5px;
+      -moz-box-shadow:0px 2px 2px #666;
+      -webkit-box-shadow:0px 2px 2px #666;
+      -moz-border-radius:5px 0px 5px 5px;
+      -webkit-border-radius:5px;
+      -webkit-border-top-right-radius:0px;
+    }		
+  }
+  
+  .block-toggle.rcontent {
+    .content {
+      border: 5px solid #fff;     
+      left: @block_lm;
+      right: auto;
+      min-width: 180px;
+    
+      /* W00T */
+      box-shadow: 10px 10px 20px #999999;
+      border-radius: 0px 5px 5px 5px;
+      -moz-box-shadow:0px 2px 2px #666;
+      -webkit-box-shadow:0px 2px 2px #666;
+      -moz-border-radius:0px 5px 5px 5px;
+      -webkit-border-radius:5px;
+      -webkit-border-top-left-radius:0px;
+    }
+		
+
+  }
+} /* .dropdown-blocks */
+
+.rounded-block {
+  .block-title {
+    border-radius: 5px 5px 5px 5px;
+    font-size: 11px;
+    line-height: inherit;
+    margin-bottom: 0;
+    padding: 4px;
+    height: 22px;
+    a {
+      vertical-align: middle;
+      padding-top: 0.35em;      
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: none;
+    }
+    span.icon {
+      margin-top: 1px;
+    }
+  }
+}
+
+/* Unique Blocks - Icons/BG Color Etc */
+.block-gstu-create-content .block-title span.icon {
+  background: url("images/create-content-20.png") no-repeat;
+}
+.active.block-gstu-create-content .block-title span.icon {
+  background: url("images/create-content-20-hover.png") no-repeat;
+}
+
+/*
+ * BEAUTYTIPs
+ * Note: beautytips do NOT display within the context in the "page" 
+ * they display in the bt-wrapper so don't theme them "within" a view, theme them
+ * in the bt-wrapper (as below).
+ -------------------------------------------------------------- */
+.bt-wrapper {
+  /* bt-close: usedc for "closing" a beautytip */
+  .bt-close {
+    display: block;
+    position: absolute;
+    top: 7px;
+    right: 3px;
+    a {
+      display: block;
+      height: 16px;
+      width: 16px;
+      padding: 3px;
+    }
+    .icon {
+      display: block;      
+      width: 10px;
+      height: 10px;
+      background-image: url('images/ui-sprite-dicons.png');
+      background-repeat: no-repeat;
+      background-position: -414px -110px;      
+      background-position: 0px -266px;
+      opacity: 0.60;
+    }        
+    a:hover .icon {
+      opacity: 1.0;
+    }
+  }   
+  
+  // Event List
+  .event-list {
+    td {
+      font-size: 80%;
+    }
+    td.event-title {
+      width: 250px;
+      a {
+        .ellipsis;  /* mix-in */
+        display: block;
+        width: 240px;
+      }
+    }
+    td.course-shname {
+      width: 100px;
+      a {
+        .ellipsis;  /* mix-in */
+        display: block;
+        width: 90px;
+      }
+    }
+    td.event-source {
+      width: 150px;
+      a {
+        .ellipsis;  /* mix-in */
+        display: block;
+        width: 140px;
+      }
+    }
+  }
+  
+}
+
+
+
+
+/* 
+ * DISPLAY SUITE Blocks 
+ ******************************************************************************/
+
+/*
+ * SUBMITTED
+------------ */
+.node .field .node-submitted {
+  -moz-border-radius:5px;
+  -webkit-border-radius:5px;
+
+  min-width:160px;
+  float:right;
+  position:relative;
+
+  font-size:11px;
+  color:#666;
+  text-shadow: 0px 1px 0px #fff; /* H V Blur Color */
+  background:#eee;
+
+  margin:0px;
+  margin-left: 15px;
+  padding:5px 5px 4px 5px;
+  border-bottom:1px solid #ddd;
+  height:30px;
+  line-height:15px;
+
+  white-space:nowrap;
+  overflow:hidden;		
+  
+  .user-picture {
+    float: left;
+    margin: 0px 5px 0px 0px;
+    img { width: 32px; }
+  }
+}
+.node .field .node-submitted:hover {
+  background: #ddd;  
+}
+.node .field .node-submitted {
+	margin-top: 17px;
+	margin-right: 17px;
+}
+/* This is for when the NodeSubmitted is in a DS Block */
+.node .field .node-submitted {
+  margin-top: 0.25em; /* we don't need margin since it will be determined by field-name-title. 2/18: I need this now. */
+  margin-right: 0.5em;		
+}
+/* This is for when the NodeSubmitted is in a BeautyTip */
+.bt-content .node-submitted-author,
+.bt-content .node-submitted {
+  font-size: 11px;
+  color: #666;
+  background: #eee;
+  text-shadow: 0px 1px 0px #fff; /* H V Blur Color */
+  white-space: nowrap;
+  margin: 0px;
+  padding: 0px; 
+  position: static;
+  float: none;
+  min-width: auto;
+  height: auto;  
+  line-height: 15px;
+}
+.bt-content .node-submitted-author:hover,
+.bt-content .node-submitted:hover { background: none repeat scroll 0 0 transparent; }
+
+.node .field .node-submitted.inline {
+  height: 20px;  
+  position: static;
+  margin-left: 0px;
+  margin-right: 0px;
+  padding: 0px;
+  border-bottom: none;
+  .spaces-feature,
+  .submitted-username,
+  .submitted-date {
+    display: inline-block;
+    margin-bottom: -0.55em;
+  }
+}
+.node .field .node-submitted.inline:hover {
+  
+}
+
+/* Single-Line Submitted Block */
+.node .field .node-submitted-author.inline {
+  font-size: 11px;    
+  position: static;
+  .spaces-feature,
+  .submitted-username,
+  .submitted-date {
+    display: inline-block;
+    margin-bottom: -0.55em;
+  }  
+}
+.node .field .node-submitted-author.inline:hover {
+  background: #ddd;  
+}
